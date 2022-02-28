@@ -1,7 +1,6 @@
-import { Router } from "express";
-import Conversation from "../models/Conversation";
+const router = require("express").Router();
+const Conversation = require("../models/Conversation");
 
-const router = Router();
 //new conv
 
 router.post("/", async (req, res) => {
@@ -37,10 +36,10 @@ router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
     const conversation = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
     });
-    res.status(200).json(conversation);
+    res.status(200).json(conversation)
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-export default router;
+module.exports = router;

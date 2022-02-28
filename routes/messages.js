@@ -1,7 +1,5 @@
-import { Router } from "express";
-import Message from "../models/Message";
-
-const router = Router();
+const router = require("express").Router();
+const Message = require("../models/Message");
 
 //add
 
@@ -29,4 +27,4 @@ router.get("/:conversationId", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

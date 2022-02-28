@@ -1,13 +1,6 @@
-import { Router } from "express";
-import User from "../models/User";
-import bcrypt from "bcrypt";
-
-const router = Router();
-
-//REGISTER
-router.get("/oke", async (req, res) => {
-  res.status(200).send("oke");
-});
+const router = require("express").Router();
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 //REGISTER
 router.post("/register", async (req, res) => {
@@ -27,7 +20,7 @@ router.post("/register", async (req, res) => {
     const user = await newUser.save();
     res.status(200).json(user);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err)
   }
 });
 
@@ -37,19 +30,13 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     !user && res.status(404).json("user not found");
 
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    if (!validPassword) {
-      res.status(400).json("wrong password");
-      return;
-    }
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    !validPassword && res.status(400).json("wrong password")
 
-    res.status(200).json(user);
+    res.status(200).json(user)
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err)
   }
 });
 
-export default router;
+module.exports = router;

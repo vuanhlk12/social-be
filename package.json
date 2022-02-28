@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node --experimental-modules --es-module-specifier-resolution=node index",
-    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node index"
+    "start": "node index",
+    "dev": "nodemon index"
   },
   "author": "",
   "license": "ISC",

@@ -1,8 +1,6 @@
-import { Router } from "express";
-import User from "../models/User";
-import bcrypt from "bcrypt";
-
-const router = Router();
+const User = require("../models/User");
+const router = require("express").Router();
+const bcrypt = require("bcrypt");
 
 //update user
 router.put("/:id", async (req, res) => {
@@ -46,7 +44,6 @@ router.delete("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   const userId = req.query.userId;
   const username = req.query.username;
-  console.log("req.query", req.query);
   try {
     const user = userId
       ? await User.findById(userId)
@@ -72,13 +69,14 @@ router.get("/friends/:userId", async (req, res) => {
       const { _id, username, profilePicture } = friend;
       friendList.push({ _id, username, profilePicture });
     });
-    res.status(200).json(friendList);
+    res.status(200).json(friendList)
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 //follow a user
+
 router.put("/:id/follow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
     try {
@@ -100,6 +98,7 @@ router.put("/:id/follow", async (req, res) => {
 });
 
 //unfollow a user
+
 router.put("/:id/unfollow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
     try {
@@ -120,4 +119,4 @@ router.put("/:id/unfollow", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
