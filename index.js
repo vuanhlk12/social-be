@@ -100,6 +100,6 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(8800, () => {
-  console.log("BE running", 8800);
+app.listen(process.env.PORT, () => {
+  console.log("BE running", process.env.PORT);
 });
