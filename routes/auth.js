@@ -5,6 +5,11 @@ import bcrypt from "bcrypt";
 const router = Router();
 
 //REGISTER
+router.get("/oke", async (req, res) => {
+  res.status(200).send("oke");
+});
+
+//REGISTER
 router.post("/register", async (req, res) => {
   try {
     //generate new password
