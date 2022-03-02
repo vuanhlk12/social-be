@@ -13,10 +13,12 @@ router.put("/:id", verify, async (req, res) => {
           process.env.SECRET_KEY
         ).toString();
       }
-      const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+      await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
       });
-      res.status(200).json(updatedUser);
+      const updatedUser = await User.findById(req.params.id);
+      const { password, ...info } = updatedUser._doc;
+      res.status(200).json(info);
     } else {
       res.status(403).json("You can update only your account!");
     }

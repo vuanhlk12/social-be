@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 //REGISTER
 router.post("/register", async (req, res) => {
@@ -18,7 +19,8 @@ router.post("/register", async (req, res) => {
 
     //save user and respond
     const user = await newUser.save();
-    res.status(200).json(user);
+    const { password, ...info } = user._doc;
+    res.status(200).json(info);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -42,9 +44,10 @@ router.post("/login", async (req, res) => {
       { expiresIn: "5d" }
     );
 
-    console.log("user", user);
+    const expireTime = moment().add(5, "days").valueOf();
+
     const { password, ...info } = user._doc;
-    res.status(200).json({ ...info, accessToken });
+    res.status(200).json({ ...info, accessToken, expireTime });
   } catch (err) {
     res.status(500).json(err);
   }
