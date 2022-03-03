@@ -26,7 +26,15 @@ mongoose.connect(
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 //middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://social-fe.vercel.app/",
+      "https://social-fe-vuanhlk12.vercel.app/",
+    ],
+  })
+);
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
