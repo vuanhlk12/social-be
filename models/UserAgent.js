@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const UserAgentSchema = new mongoose.Schema(
   {
     info: {
-      type: Array,
+      type: Object,
     },
     cookie: {
       type: String,
