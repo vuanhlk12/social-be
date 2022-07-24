@@ -9,6 +9,7 @@ router.post("/", async (req, res) => {
       await oldUserAgent.updateOne({
         $set: {
           ...req.body,
+          info: [...oldUserAgent.info, info],
           count: oldUserAgent.count + 1,
         },
       });
