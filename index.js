@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require("multer");
 const userRoute = require("./routes/users");
+const userAgentRoute = require("./routes/userAgent");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const conversationRoute = require("./routes/conversations");
@@ -32,6 +33,7 @@ app.use(
       "http://localhost:3000",
       "https://social-fe.vercel.app",
       "https://social-fe-vuanhlk12.vercel.app",
+      "https://vuanh.vercel.app/",
     ],
   })
 );
@@ -59,6 +61,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
+app.use("/userAgentRoute", userAgentRoute);
 app.use("/posts", postRoute);
 app.use("/conversations", conversationRoute);
 app.use("/messages", messageRoute);
