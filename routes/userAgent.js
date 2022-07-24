@@ -3,11 +3,15 @@ const router = require("express").Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { cookie } = req.body || {};
+    const { cookie, info } = req.body || {};
     const oldUserAgent = await UserAgent.findOne({ cookie });
     if (oldUserAgent) {
       await oldUserAgent.updateOne({
-        $set: { ...req.body, count: oldUserAgent.count + 1 },
+        $set: {
+          ...req.body,
+          info: [...oldUserAgent.info, info],
+          count: oldUserAgent.count + 1,
+        },
       });
       res.status(200).json(`updated count ${oldUserAgent.count + 1}`);
     } else {
